@@ -1,0 +1,22 @@
+{
+  "name": "Immobilien-Rentabilitätsrechner",
+  "short_name": "RentRechner",
+  "description": "Ertragswert- und Cashflow-Rechner für Immobilien.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme-color": "#0d1117",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "images/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}

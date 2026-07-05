@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Immobilien-Rentabilitätsrechner</title>
+  
+  <!-- SEO Tags -->
+  <meta name="description" content="Professioneller Immobilien-Rentabilitätsrechner. Ermitteln Sie Cashflow, Rendite und Kaufnebenkosten. Offline-fähig und optimiert fürs Smartphone.">
+  <meta name="theme-color" content="#0d1117">
+  
+  <!-- Manifest for Android/iOS PWA -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/favicon.svg">
+  
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div class="header-logo logo-area">
+        <img src="images/Logo_white_120px.svg" alt="Logo" class="logo-img">
+        <h1>Immobilien-Rentabilitätsrechner</h1>
+      </div>
+      <button id="pwa-install-btn" class="btn btn-secondary install-btn" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+        </svg>
+        Als App installieren
+      </button>
+    </header>
+
+    <main class="app-main">
+      <!-- Left Column / Input Section -->
+      <section class="calculator-inputs">
+        <div class="card glass">
+          <h2 class="card-title">1. Schnellcheck</h2>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-kaufpreis">Kaufpreis (€)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-kaufpreis" placeholder="z.B. 250.000" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-standort">Standort (Gemeinde)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">📍</span>
+                <input type="text" id="input-standort" placeholder="z.B. Bozen" list="gemeinden" autocomplete="off">
+                <button type="button" id="btn-clear-standort" class="clear-btn">&times;</button>
+                <datalist id="gemeinden">
+                  <!-- A -->
+                  <option value="Abtei (Badia)">
+                  <option value="Ahrntal">
+                  <option value="Aldein">
+                  <option value="Algund">
+                  <option value="Altrei">
+                  <option value="Andrian">
+                  <option value="Auer">
+                  <!-- B -->
+                  <option value="Barbian">
+                  <option value="Bozen">
+                  <option value="Brenner">
+                  <option value="Brixen">
+                  <option value="Bruneck">
+                  <!-- C -->
+                  <option value="Corvara">
+                  <!-- D -->
+                  <option value="Deutschnofen">
+                  <!-- E -->
+                  <option value="Elvas (Brixen)">
+                  <option value="Eppan an der Weinstraße">
+                  <!-- F -->
+                  <option value="Fahrhof (Lana)">
+                  <option value="Feldthurns">
+                  <option value="Franzensfeste">
+                  <option value="Freienfeld">
+                  <!-- G -->
+                  <option value="Gais">
+                  <option value="Gargazon">
+                  <option value="Glurns">
+                  <option value="Graun im Vinschgau">
+                  <option value="Gsies">
+                  <!-- H -->
+                  <option value="Hafling">
+                  <!-- I -->
+                  <option value="Innichen">
+                  <!-- J -->
+                  <option value="Jenesien">
+                  <!-- K -->
+                  <option value="Kaltern an der Weinstraße">
+                  <option value="Kardaund (Karneid)">
+                  <option value="Karneid">
+                  <option value="Kastelbell-Tschars">
+                  <option value="Kastelruth">
+                  <option value="Kiens">
+                  <option value="Klausen">
+                  <option value="Kuens">
+                  <option value="Kurtatsch an der Weinstraße">
+                  <option value="Kurtinig an der Weinstraße">
+                  <!-- L -->
+                  <option value="Laas">
+                  <option value="Lajen">
+                  <option value="Lana">
+                  <option value="Latsch">
+                  <option value="Laurein">
+                  <option value="Leifers">
+                  <option value="Lüsen">
+                  <!-- M -->
+                  <option value="Mals">
+                  <option value="Margreid an der Weinstraße">
+                  <option value="Marling">
+                  <option value="Martell">
+                  <option value="Meran">
+                  <option value="Mölten">
+                  <option value="Montan">
+                  <option value="Mühlbach">
+                  <option value="Mühlwald">
+                  <!-- N -->
+                  <option value="Nals">
+                  <option value="Naturns">
+                  <option value="Natz-Schabs">
+                  <option value="Neumarkt">
+                  <option value="Niederdorf">
+                  <!-- O -->
+                  <option value="Olang">
+                  <!-- P -->
+                  <option value="Partschins">
+                  <option value="Percha">
+                  <option value="Pfalzen">
+                  <option value="Pfitsch">
+                  <option value="Plaus">
+                  <option value="Prad am Stilfserjoch">
+                  <option value="Prags">
+                  <option value="Prettau">
+                  <option value="Proveis">
+                  <!-- R -->
+                  <option value="Rasen-Antholz">
+                  <option value="Ratschings">
+                  <option value="Riffian">
+                  <option value="Ritten">
+                  <option value="Rodeneck">
+                  <!-- S -->
+                  <option value="Salurn an der Weinstraße">
+                  <option value="Sand in Taufers">
+                  <option value="Santa Cristina (Gröden)">
+                  <option value="Sarntal">
+                  <option value="Schenna">
+                  <option value="Schlanders">
+                  <option value="Schluderns">
+                  <option value="Schnals">
+                  <option value="Sexten">
+                  <option value="St. Leonhard in Passeier">
+                  <option value="St. Lorenzen">
+                  <option value="St. Martin in Passeier">
+                  <option value="St. Martin in Thurn">
+                  <option value="St. Pankraz">
+                  <option value="St. Ulrich in Gröden">
+                  <option value="Sterzing">
+                  <option value="Stilfs">
+                  <!-- T -->
+                  <option value="Taufers im Münstertal">
+                  <option value="Terenten">
+                  <option value="Terlan">
+                  <option value="Tiers">
+                  <option value="Tirol (Dorf Tirol)">
+                  <option value="Tisens">
+                  <option value="Toblach">
+                  <option value="Tramin an der Weinstraße">
+                  <option value="Truden im Naturpark">
+                  <option value="Tscherms">
+                  <!-- U -->
+                  <option value="Ulten">
+                  <option value="Unsere Liebe Frau im Walde-St. Felix">
+                  <!-- V -->
+                  <option value="Vahrn">
+                  <option value="Villanders">
+                  <option value="Villnöß">
+                  <option value="Vintl">
+                  <option value="Völs am Schlern">
+                  <option value="Vöran">
+                  <!-- W -->
+                  <option value="Waidbruck">
+                  <option value="Welsberg-Taisten">
+                  <option value="Welschnofen">
+                  <option value="Wolkenstein in Gröden">
+                </datalist>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-flaeche">Wohnfläche (m²)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">m²</span>
+                <input type="text" inputmode="decimal" id="input-flaeche" placeholder="z.B. 75">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-mietpreis-qm">Ø Mietpreis pro m² (€)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-mietpreis-qm" placeholder="z.B. 12,00">
+              </div>
+              <p class="field-info-text">Richtwerte laut <a href="https://www.immobiliare.it/de/mercato-immobiliare/trentino-alto-adige/bolzano-provincia/" target="_blank" rel="noopener">Immobiliare.it</a> & <a href="https://www1.agenziaentrate.gov.it/servizi/Consultazione/ricerca.htm?lingua=DE" target="_blank" rel="noopener">OMI (Agenzia Entrate)</a></p>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="input-miete">Errechnete Kaltmiete (€/Monat)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-miete" placeholder="z.B. 950" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="input-kataster">
+                Katasterertrag (Rendita) (€)
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Kataster-Schätzung (m² x 9,00 €):</strong><br>
+                    • Basiswert: Wohnfläche x 9,00 €<br>
+                    • Garage (falls aktiv): + 80,00 €<br>
+                    • Richtwert für Südtiroler Wohnungen (A/2-A/3)<br>
+                    <span id="tooltip-calc-kataster" style="display: block; margin-top: 6px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 4px; font-weight: bold; color: var(--accent-color);">Rechnung: —</span>
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-kataster" placeholder="z.B. 650">
+              </div>
+            </div>
+          </div>
+
+          <!-- Toggles for South Tyrol Taxes -->
+          <div class="options-group">
+            <div class="toggle-row">
+              <span class="toggle-label">Kauf-Typ</span>
+              <div class="segmented-control" id="kauf-typ-toggle">
+                <button type="button" class="segment-btn" data-val="prima">Erstwohnung</button>
+                <button type="button" class="segment-btn active" data-val="seconda">Zweitwohnung</button>
+              </div>
+            </div>
+
+            <div class="toggle-row">
+              <span class="toggle-label">Besteuerung</span>
+              <div class="segmented-control" id="steuer-typ-toggle">
+                <button type="button" class="segment-btn active" data-val="register">Registersteuer</button>
+                <button type="button" class="segment-btn" data-val="mwst">MwSt. (IVA)</button>
+              </div>
+            </div>
+
+            <div class="form-group" id="mwst-rate-group" style="display: none;">
+              <label for="input-mwst-rate">MwSt.-Satz (%)</label>
+              <div class="segmented-control" id="mwst-rate-toggle">
+                <button type="button" class="segment-btn active" data-val="4">4% (Prima)</button>
+                <button type="button" class="segment-btn" data-val="10">10% (Normal)</button>
+                <button type="button" class="segment-btn" data-val="22">22% (Luxus)</button>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 10px; margin-bottom: 10px;">
+              <label for="select-steuer-miete">Besteuerung der Mieteinnahmen</label>
+              <select id="select-steuer-miete">
+                <option value="cedolare21">Cedolare Secca (21% - Freie Miete)</option>
+                <option value="cedolare10">Cedolare Secca (10% - Begünstigte Miete)</option>
+                <option value="irpef">IRPEF (Persönlicher Steuersatz)</option>
+                <option value="keine">Keine Einkommenssteuer</option>
+              </select>
+            </div>
+            
+            <div class="form-group" id="group-personal-tax" style="display: none; margin-bottom: 10px;">
+              <label for="input-personal-tax-rate">Persönlicher Grenzsteuersatz (%)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">%</span>
+                <input type="text" inputmode="decimal" id="input-personal-tax-rate" placeholder="z.B. 43" value="43">
+              </div>
+            </div>
+
+            <div class="checkbox-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="check-konventioniert">
+                <span class="checkmark"></span>
+                Konventioniert (Art. 39 L.G.)
+              </label>
+              
+              <label class="custom-checkbox">
+                <input type="checkbox" id="check-garage">
+                <span class="checkmark"></span>
+                Garage inklusive
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detailanalyse -->
+        <div class="card glass">
+          <h2 class="card-title">2. Finanzierung & Sanierung</h2>
+          
+          <div class="form-grid" style="margin-bottom: 20px;">
+            <div class="form-group">
+              <label for="input-eigenkapital">Eigenkapital (€)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-eigenkapital" placeholder="z.B. 50.000" value="0">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="input-sanierung">Sanierungskosten (€)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-sanierung" placeholder="z.B. 15.000" value="0">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Dynamic Financing Summary Card -->
+          <div class="summary-card" id="financing-summary-card" style="margin-bottom: 20px; padding: 15px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);">
+            <h4 style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--text-main); font-weight: 600;">Finanzierungsaufstellung</h4>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.82rem; color: var(--text-muted);">
+              <div style="display: flex; justify-content: space-between;">
+                <span>Kaufpreis:</span>
+                <span id="summary-kaufpreis" style="color: var(--text-main); font-weight: 500;">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>+ Kaufnebenkosten (Steuern & Gebühren):</span>
+                <span id="summary-nebenkosten" style="color: var(--text-main); font-weight: 500;">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>+ Sanierungskosten:</span>
+                <span id="summary-sanierung" style="color: var(--text-main); font-weight: 500;">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 6px; margin-bottom: 4px;">
+                <span style="font-weight: 600; color: var(--text-main);">Kapitalbedarf (Gesamtkosten):</span>
+                <span id="summary-kapitalbedarf" style="font-weight: 600; color: var(--text-main);">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>- Eingesetztes Eigenkapital:</span>
+                <span id="summary-eigenkapital" style="color: var(--accent-color); font-weight: 500;">- 0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 6px; font-size: 0.9rem;">
+                <span style="font-weight: 700; color: var(--text-main);">Kreditbedarf (Kreditsumme):</span>
+                <span id="summary-kreditbedarf" style="font-weight: 700; color: var(--accent-color);">0 €</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="slider-label-row">
+              <label for="range-zins">
+                Sollzins p.a.
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Zinskalkulation (Euribor 3M + 1,2%):</strong><br>
+                    • Euribor 3-Monate: ca. 2,30 %<br>
+                    • Bankmarge (Spread): 1,20 %<br>
+                    • Sollzins: 3,50 %
+                  </span>
+                </span>
+              </label>
+              <span class="slider-value-display" id="zins-val">3,5 % (0 €/Monat)</span>
+            </div>
+            <input type="range" id="range-zins" min="0.5" max="8.0" step="0.1" value="3.5" class="custom-slider">
+          </div>
+
+          <div class="form-group">
+            <label for="input-monatsrate">
+              Monatliche Kreditrate (€/Monat)
+              <span class="tooltip-container">
+                <span class="info-icon">i</span>
+                <span class="tooltip-text">
+                  <strong>Kreditlaufzeit & Zinsbindung:</strong><br>
+                  • Übliche Laufzeit: 20 bis 30 Jahre<br>
+                  • Gesetzliches Limit (Italien): max. 30 Jahre<br>
+                  • Altersgrenze: meist 75–80 Jahre am Laufzeitende.
+                </span>
+              </span>
+            </label>
+            <div class="input-wrapper">
+              <span class="input-icon">€</span>
+              <input type="text" inputmode="decimal" id="input-monatsrate" placeholder="z.B. 800">
+            </div>
+            <input type="range" id="range-monatsrate" min="0" max="3000" step="10" value="800" class="custom-slider" style="margin-top: 8px;">
+            <p class="field-info-text" id="laufzeit-val" style="margin-top: 4px; font-weight: 500; color: var(--text-main);">Theoretische Laufzeit: —</p>
+            <p class="field-info-text" id="aufteilung-val" style="margin-top: 2px; font-size: 0.72rem; color: var(--text-muted);">Rate-Aufteilung: —</p>
+          </div>
+
+          <div class="form-group">
+            <label for="input-hausgeld">
+              Hausgeld / Nicht umlegbar (€/Monat)
+              <span class="tooltip-container">
+                <span class="info-icon">i</span>
+                <span class="tooltip-text">
+                  <strong>Nicht umlegbare Kosten (Faustregel 1,50 €/m²):</strong><br>
+                  • GIS (Gemeinde-Steuer): ca. 0,60 €/m²<br>
+                  • Hausverwaltung & Gebäude-Rücklage: ca. 0,40 €/m²<br>
+                  • Private Reparatur-Rücklage: ca. 0,50 €/m²<br>
+                  <span id="tooltip-calc-hausgeld" style="display: block; margin-top: 6px; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 4px; font-weight: bold; color: var(--accent-color);">Rechnung: —</span>
+                </span>
+              </span>
+            </label>
+            <div class="input-wrapper">
+              <span class="input-icon">€</span>
+              <input type="text" inputmode="decimal" id="input-hausgeld" placeholder="Instandhaltung + Verwaltung (z.B. 80)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools & Stress-Test -->
+        <div class="card glass">
+          <h2 class="card-title">3. Tools & Stress-Test</h2>
+          
+          <!-- Reverse Calculator Toggle -->
+          <div class="form-group">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="check-reverse-calc">
+              <span class="checkmark"></span>
+              <strong>Rückwärts-Rechner aktivieren</strong>
+            </label>
+            <p class="tool-desc">Berechnet den maximalen Kaufpreis für deinen Wunsch-Cashflow.</p>
+          </div>
+
+          <div id="reverse-calc-fields" style="display: none;">
+            <div class="form-group">
+              <label for="input-ziel-cashflow">Wunsch-Cashflow (€/Monat)</label>
+              <div class="input-wrapper">
+                <span class="input-icon">€</span>
+                <input type="text" inputmode="decimal" id="input-ziel-cashflow" placeholder="z.B. 100" value="0">
+              </div>
+            </div>
+          </div>
+
+          <!-- Stress Test -->
+          <hr class="card-divider">
+          
+          <h3 class="card-subtitle">Stress-Test Simulation</h3>
+
+          <div class="form-group">
+            <div class="slider-label-row">
+              <label for="range-leerstand">Leerstand / Mietausfall</label>
+              <span class="slider-value-display" id="leerstand-val">0 Monate / Jahr</span>
+            </div>
+            <input type="range" id="range-leerstand" min="0" max="4" step="0.5" value="0" class="custom-slider">
+          </div>
+
+          <div class="form-group">
+            <div class="slider-label-row">
+              <label for="range-stresszins">Zinsanstieg nach Zinsbindung</label>
+              <span class="slider-value-display" id="stresszins-val">+0,0 % (Kein)</span>
+            </div>
+            <input type="range" id="range-stresszins" min="0" max="5" step="0.5" value="0" class="custom-slider">
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column / Output Section -->
+      <section class="calculator-outputs">
+        <div class="card glass results-card sticky-card">
+          <h2 class="card-title">Urteil</h2>
+
+          <div class="primary-result-badge badge-neutral" id="out-verdict-badge">
+            <span class="badge-label" id="out-verdict-title">Monatlicher Cashflow</span>
+            <span class="badge-value" id="out-cashflow">—</span>
+            <span class="badge-sub" id="out-verdict-desc">Bitte füllen Sie Kaufpreis und Miete aus</span>
+          </div>
+          
+          <!-- Cashflow Calculation Breakdown -->
+          <div class="summary-card" id="cashflow-breakdown-card" style="margin-top: 15px; margin-bottom: 15px; padding: 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.82rem; color: var(--text-muted);">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="display: flex; justify-content: space-between;">
+                <span>Kaltmiete (effektiv):</span>
+                <span id="cf-miete" style="color: var(--text-main); font-weight: 500;">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>- Hausgeld (nicht umlegbar):</span>
+                <span id="cf-hausgeld" style="color: var(--text-main); font-weight: 500;">- 0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>- Monatliche Kreditrate:</span>
+                <span id="cf-kreditrate" style="color: var(--text-main); font-weight: 500;">- 0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 6px; margin-bottom: 4px;">
+                <span>= Cashflow (vor Steuern):</span>
+                <span id="cf-cashflow-pretax" style="color: var(--text-main); font-weight: 500;">0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span id="label-cf-steuer">- Einkommenssteuer (Miete):</span>
+                <span id="cf-steuer" style="color: var(--text-main); font-weight: 500;">- 0 €</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; border-top: 1px dashed rgba(255, 255, 255, 0.15); padding-top: 6px; font-weight: 600; font-size: 0.88rem;">
+                <span style="color: var(--text-main);">Monatlicher Cashflow (netto):</span>
+                <span id="cf-cashflow" style="color: var(--text-main);">0 €</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alert area for information e.g. Konventioniert -->
+          <div class="alert-info" id="alert-konventioniert" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            <span><strong>Achtung:</strong> Konventionierte Wohnung. Darf nur von Ansässigen (min. 5 Jahre) oder hier Arbeitenden bewohnt werden. Ferienvermietung ausgeschlossen.</span>
+          </div>
+
+          <div class="alert-danger" id="validation-alert" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <span id="validation-msg">Fehler</span>
+          </div>
+
+          <!-- Dynamic calculation result cards -->
+          <div class="results-grid">
+            <div class="result-tile">
+              <span class="tile-label">
+                Nettomietrendite
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Nettomietrendite (Realer Ertrag):</strong><br>
+                    Setzt die Jahreskaltmiete (abzüglich nicht umlegbarer Kosten wie Hausgeld/GIS) ins Verhältnis zu den Gesamtkosten (Kaufpreis + Nebenkosten + Sanierung).<br>
+                    <strong>Richtwerte:</strong><br>
+                    • <span style="color: var(--danger-color); font-weight: 500;">&lt; 3,5 %: Gering (A-Lagen/Bozen).</span><br>
+                    • <span style="color: var(--warning-color); font-weight: 500;">3,5 % - 4,4 %: Solider Schnitt (B-Lagen).</span><br>
+                    • <span style="color: var(--success-color); font-weight: 500;">&ge; 4,5 %: Sehr gut (C-Lagen/Land).</span><br>
+                    <em>Tipp: Sollte min. 1,0 - 1,5 % über dem Sollzins der Banken liegen.</em>
+                  </span>
+                </span>
+              </span>
+              <span class="tile-value" id="out-netto-rendite">—</span>
+            </div>
+
+            <div class="result-tile">
+              <span class="tile-label">
+                Bruttomietrendite
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Bruttomietrendite (Grober Richtwert):</strong><br>
+                    Teilt einfach die Jahreskaltmiete durch den reinen Kaufpreis. Kaufnebenkosten, Sanierung und nicht umlegbare Betriebskosten werden ignoriert.<br>
+                    <strong>Richtwerte:</strong><br>
+                    • <span style="color: var(--danger-color); font-weight: 500;">&lt; 4,5 %: Geringe Rendite.</span><br>
+                    • <span style="color: var(--warning-color); font-weight: 500;">4,5 % - 5,4 %: Durchschnittlich / Solide.</span><br>
+                    • <span style="color: var(--success-color); font-weight: 500;">&ge; 5,5 %: Gute Rendite (Kapitalanlagen-Richtwert).</span>
+                  </span>
+                </span>
+              </span>
+              <span class="tile-value" id="out-brutto-rendite">—</span>
+            </div>
+
+            <div class="result-tile">
+              <span class="tile-label">
+                Eigenkapitalrendite
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Eigenkapitalrendite Richtwerte:</strong><br>
+                    • <span style="color: var(--success-color); font-weight: 500;">&ge; 8,0 %: Sehr gut (Aktienmarkt geschlagen).</span><br>
+                    • <span style="color: var(--warning-color); font-weight: 500;">4,0 % - 7,9 %: Solider Durchschnitt.</span><br>
+                    • <span style="color: var(--danger-color); font-weight: 500;">&lt; 4,0 %: Geringe Rendite (Zinshebel wirkt kaum).</span><br>
+                    • Zeigt die Verzinsung des tatsächlich selbst eingezahlten Geldes.
+                  </span>
+                </span>
+              </span>
+              <span class="tile-value" id="out-ek-rendite">—</span>
+            </div>
+
+            <div class="result-tile">
+              <span class="tile-label">
+                Kaufpreisfaktor
+                <span class="tooltip-container">
+                  <span class="info-icon">i</span>
+                  <span class="tooltip-text">
+                    <strong>Kaufpreisfaktor (Vervielfältiger):</strong><br>
+                    Gibt an, wie viele Jahreskaltmieten nötig sind, um den Kaufpreis zu decken. (Kehrwert der Bruttorendite).<br>
+                    <strong>Richtwerte:</strong><br>
+                    • <span style="color: var(--success-color); font-weight: 500;">&lt; 20x: Sehr günstig (Guter Cashflow).</span><br>
+                    • <span style="color: var(--warning-color); font-weight: 500;">20x - 25x: Solide / Marktüblich.</span><br>
+                    • <span style="color: #f97316; font-weight: 500;">26x - 30x: Teuer (Sehr knapper Cashflow).</span><br>
+                    • <span style="color: var(--danger-color); font-weight: 500;">&gt; 30x: Sehr teuer (Negativer Cashflow garantiert).</span>
+                  </span>
+                </span>
+              </span>
+              <span class="tile-value" id="out-faktor">—</span>
+            </div>
+
+            <div class="result-tile full-width text-left">
+              <span class="tile-label">Nebenkosten & Steuern</span>
+              <span class="tile-value" id="out-nebenkosten">—</span>
+              <span class="tile-details" id="out-nebenkosten-detail">Warte auf Eingabe...</span>
+            </div>
+            
+            <div class="result-tile full-width text-left" id="tile-reverse-result" style="display: none;">
+              <span class="tile-label">Max. empfohlener Kaufpreis</span>
+              <span class="tile-value highlight" id="out-reverse-kaufpreis">—</span>
+              <span class="tile-details" id="out-reverse-detail">Damit der Wunsch-Cashflow erzielt wird.</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>&copy; 2026 Immobilien-Rentabilitätsrechner. Berechnungen erfolgen lokal auf Ihrem Gerät.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
