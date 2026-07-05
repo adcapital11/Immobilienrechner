@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Radial gradient to simulate the premium glossy depth and transition to `#0A0F1D` -->
+    <radialGradient id="bg-grad" cx="50%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#1c4885" />
+      <stop offset="65%" stop-color="#0A0F1D" />
+      <stop offset="100%" stop-color="#050811" />
+    </radialGradient>
+    
+    <!-- Subtle shadow for 3D depth of the white house outline -->
+    <filter id="drop-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background Squircle with subtle border -->
+  <rect width="512" height="512" rx="128" fill="url(#bg-grad)" stroke="#1a2d4c" stroke-width="4" />
+  
+  <!-- Group for the house and percent sign with drop shadow -->
+  <g filter="url(#drop-shadow)">
+    <!-- House body (walls and floor) -->
+    <path d="M 160 236 L 160 370 L 352 370 L 352 236" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="24" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+          
+    <!-- Chimney on the right slope of the roof -->
+    <path d="M 315 170 L 315 140 L 350 140 L 350 200" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="24" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Roof -->
+    <path d="M 120 240 L 256 120 L 392 240" 
+          fill="none" 
+          stroke="#FFFFFF" 
+          stroke-width="24" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Percent sign inside the house -->
+    <g stroke="#FFFFFF" stroke-width="20" stroke-linecap="round" fill="none">
+      <!-- Diagonal line -->
+      <line x1="305" y1="205" x2="207" y2="303" />
+      <!-- Upper left circle -->
+      <circle cx="215" cy="215" r="20" stroke-width="16" />
+      <!-- Lower right circle -->
+      <circle cx="297" cy="297" r="20" stroke-width="16" />
+    </g>
+  </g>
+</svg>
